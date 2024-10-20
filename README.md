@@ -64,7 +64,7 @@ server {
 - It then tests the “Host” header field of the request against the server_name entries of the server blocks that **matched** the IP address and port.
 - If the server name is not found, the request will be processed by the default server. *For example*, a request for www.example.com received on the 192.168.1.1:80 port will be handled by the default server of the 192.168.1.1:80 port, i.e., by the first server, since there is no www.example.com defined for this port.
 
-## A simple PHP sit configuration
+## A simple PHP site configuration
 Now let’s look at how nginx chooses a location to process a request for a typical, simple PHP site:
 ```
 server {
