@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Application container 1
+  app1:
+    image: ex-server
+    container_name: api-server-1
+    ports:
+      - "3000:3000"  # Expose the port for local access (optional)
+    environment:
+      - PORT=3000
+    networks:
+      - my-network
+
+  # Application container 2
+  app2:
+    image: ex-server
+    container_name: api-server-2
+    ports:
+      - "3002:3002"  # Expose the port for local access (optional)
+    environment:
+      - PORT=3002
+    networks:
+      - my-network
+
+  # Application container 3
+  app3:
+    image: ex-server
+    container_name: api-server-3
+    ports:
+      - "3004:3004"  # Expose the port for local access (optional)
+    environment:
+      - PORT=3004
+    networks:
+      - my-network
+
+  # Nginx Load Balancer
+  nginx:
+    image: ng-lb
+    ports:
+      - "80:80"  # Expose port 80 for HTTP access
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Mount the custom Nginx configuration
+    depends_on:
+      - app1
+      - app2
+      - app3
+    networks:
+      - my-network
+
+# Define a shared network for all services
+networks:
+  my-network:
+    driver: bridge
